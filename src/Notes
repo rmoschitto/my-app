@@ -1,0 +1,44 @@
+{/* One statement, so it will `return` implicitly*/}
+const Greeting = () => (
+  <h1>Hello!</h1>
+)
+
+{/* Still one statement, despite the statement's nesting */}
+const Sidebar = () => (
+  <ul>
+    <li>
+      <a href="http://www.theonion.com">The Onion</a>
+    </li>
+  </ul>
+)
+
+{/* Still one statement, despite 2 sibling React elements */}
+const App = () => (
+  <div>
+    <Greeting />
+    <Sidebar />
+  </div>
+)
+
+JavaScript has several ways of defining functions, and all of these are correct:
+
+{/* Explicit `return` reserved word */}
+const Greeting = function () {
+  return <h1>Hello!</h1>
+}
+
+{/* Implicit `return` with 'arrow' declaration */}
+const Greeting = () => <h1>Hello!</h1>
+
+{/* Self-invoking function syntax with 'arrow' declaration */}
+const Greeting = () => (<h1>Hello!</h1>)
+
+{/* New-line for readability */}
+const Greeting = () => (
+  <h1>Hello!</h1>
+)
+
+{/* Explicit `return` reserved word with 'arrow' declaration */}
+const Greeting = () => {
+  return <h1>Hello!</h1>
+}
