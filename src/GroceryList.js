@@ -1,38 +1,74 @@
+// Below commented out is our grocery app paired.
+
+// import React from 'react';
+// import GroceryListPaired from './GroceryListPaired'
+// import './App.css'
+//
+// export default class App extends React.Component {
+//     state = {
+//         items: ['Milk', 'Cheese', 'Pork Butt', 'Brisket']
+//     }
+//     render() {
+//         return (
+//             <div className={"groceries"}>
+//                 <h1>Grocery List</h1>
+//                 <p>Need to buy for smoking</p>
+//                 <GroceryListPaired myList={this.state.items}/>
+//             </div>
+//         )
+//     }
+// }
+//
+
+
 import React from "react";
-
+import GroceryListItem from "./GroceryListItem";
 export default class GroceryList extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
         this.state = {
-            done: false
-        };
+            items: ['Apple', 'Banana', 'Strawberry', "Grapes"],
+            newItem: ''
+        }
     }
-
-    onListItemClick(event) {
-        console.log('I got clicked');
-        this.setState({
-            done: !this.state.done
-        });
+    componentDidMount() {
+        setTimeout(() => {
+            const items = [...this.state.items];
+            items.push('Oranges')
+            const newState = {
+                items
+            }
+            this.setState(newState)
+        }, 2000)
     }
-
-    onmouseenter(event) {
-        this.style = "bold";
+    addItem() {
+        const items = [...this.state.items];
+        items.push(this.state.newItem)
+        const newState = {
+            items,
+            newItem: ''
+        }
+        this.setState(newState);
     }
-
-
     render() {
-        let style = {
-            textDecoration: this.state.done ? 'line-through' : 'none'
-        };
-        const items = this.props.myList.map((element, id)=> {
-            return <li style={style} onClick={this.onListItemClick.bind(this)}>{element}</li>
-        })
-        return(
+        return (
             <div>
                 <ul>
-                    {items}
+                    {this.state.items.map((item, index) => {
+                        return <GroceryListItem name={item} key={index} />
+                    })}
                 </ul>
+                <input
+                    value={this.state.newItem}
+                    type={'text'}
+                    onChange={(event) => {
+                        this.setState({
+                            newItem: event.target.value
+                        })
+                    }}
+                />
+                <button onClick={() => this.addItem()}>Add Item</button>
             </div>
-        );
+    )
     }
 }
